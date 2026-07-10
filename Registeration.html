@@ -7,417 +7,9 @@
     <title>Create account · SaaS</title>
     <!-- Font Awesome 6 (free) for eye icon & icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* ----- RESET & BASE (Modern Corporate SaaS) ----- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/Registeration.css">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 24px;
-            background: #F8FAFC;
-            /* soft neutral */
-            position: relative;
-        }
-
-        /* subtle brand aura – clean */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -40%;
-            left: -20%;
-            width: 80%;
-            height: 80%;
-            background: radial-gradient(circle at 30% 50%, rgba(37, 99, 235, 0.04) 0%, transparent 60%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -30%;
-            right: -20%;
-            width: 70%;
-            height: 70%;
-            background: radial-gradient(circle at 70% 60%, rgba(37, 99, 235, 0.03) 0%, transparent 60%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* ----- MAIN CARD (white, radius 12px, clean shadow) ----- */
-        form {
-            position: relative;
-            z-index: 1;
-            background: #ffffff;
-            padding: 48px 40px 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.03);
-            width: 100%;
-            max-width: 480px;
-            transition: box-shadow 0.25s ease, transform 0.2s ease;
-            border: 1px solid rgba(0, 0, 0, 0.02);
-            margin-top: 18px;
-        }
-
-        form:hover {
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 6px 18px rgba(0, 0, 0, 0.03);
-        }
-
-        /* ----- TITLE (clean, bold, primary) ----- */
-        h1 {
-            text-align: center;
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            color: #0B1E3A;
-            margin-bottom: 32px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            position: relative;
-        }
-
-        h1::after {
-            content: '';
-            display: block;
-            width: 48px;
-            height: 4px;
-            background: #2563EB;
-            border-radius: 4px;
-            margin: 12px auto 0;
-            opacity: 0.6;
-        }
-
-        /* ----- FORM GROUPS ----- */
-        .form-group {
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        label {
-            display: block;
-            font-weight: 500;
-            font-size: 14px;
-            color: #1E293B;
-            margin-bottom: 6px;
-            letter-spacing: -0.2px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        /* --- PASSWORD WRAPPER (for icon) --- */
-        .password-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        .password-wrapper input {
-            width: 100%;
-            padding: 12px 44px 12px 14px;
-            font-size: 15px;
-            font-weight: 400;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            color: #0B1E3A;
-            transition: border 0.2s ease, box-shadow 0.2s ease;
-            outline: none;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-        }
-
-        .password-wrapper input::placeholder {
-            color: #94A3B8;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .password-wrapper input:focus {
-            border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-            background: #FFFFFF;
-        }
-
-        .password-wrapper input:hover {
-            border-color: #B9C7DB;
-        }
-
-        /* eye toggle button */
-        .toggle-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: transparent;
-            border: none;
-            color: #94A3B8;
-            font-size: 17px;
-            cursor: pointer;
-            padding: 6px 4px;
-            transition: color 0.2s ease, transform 0.15s ease;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-        }
-
-        .toggle-password:hover {
-            color: #2563EB;
-        }
-
-        .toggle-password:active {
-            transform: translateY(-50%) scale(0.92);
-        }
-
-        .toggle-password i {
-            pointer-events: none;
-        }
-
-        /* ----- INPUTS (clean, shared) ----- */
-        input,
-        select {
-            width: 100%;
-            padding: 12px 14px;
-            font-size: 15px;
-            font-weight: 400;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            color: #0B1E3A;
-            transition: border 0.2s ease, box-shadow 0.2s ease;
-            outline: none;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-        }
-
-        input::placeholder {
-            color: #94A3B8;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-            background: #FFFFFF;
-        }
-
-        input:hover,
-        select:hover {
-            border-color: #B9C7DB;
-        }
-
-        /* select arrow custom */
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            padding-right: 40px;
-            cursor: pointer;
-        }
-
-        select option {
-            background: white;
-            color: #0B1E3A;
-        }
-
-        select option[disabled] {
-            color: #94A3B8;
-        }
-
-        /* date input */
-        input[type="date"] {
-            color-scheme: light;
-            color: #0B1E3A;
-        }
-
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.2);
-            cursor: pointer;
-        }
-
-        /* validation style (clean) */
-        input:invalid:not(:placeholder-shown) {
-            border-color: #EF4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
-        }
-
-        input:valid:not(:placeholder-shown) {
-            border-color: #10B981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.08);
-        }
-
-        /* ----- SUBMIT BUTTON (primary blue) ----- */
-        button[type="submit"] {
-            width: 100%;
-            padding: 14px 16px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-            color: #FFFFFF;
-            background: #2563EB;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-            position: relative;
-            margin-top: 6px;
-            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
-        }
-
-        button[type="submit"]:hover {
-            background: #1D4ED8;
-            box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.2);
-            transform: translateY(-1px);
-        }
-
-        button[type="submit"]:active {
-            background: #1E3A8A;
-            transform: scale(0.98);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
-        }
-
-        /* ===== LINK CONTAINER - LOGIN RIGHT, HOME LEFT (corporate style) ===== */
-        .link-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 6px;
-            margin-bottom: 22px;
-            width: 100%;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .tech-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-weight: 500;
-            font-size: 14px;
-            letter-spacing: 0.2px;
-            text-decoration: none;
-            padding: 6px 2px;
-            transition: all 0.2s ease;
-            border-bottom: 2px solid transparent;
-            color: #475569;
-        }
-
-        .tech-link i {
-            font-size: 14px;
-            transition: transform 0.2s ease;
-        }
-
-        /* LOGIN link - right side */
-        .login-link {
-            margin-left: auto;
-            color: #2563EB;
-        }
-        .login-link:hover {
-            color: #1D4ED8;
-            border-bottom-color: #2563EB;
-            transform: translateX(4px);
-        }
-        .login-link:hover i {
-            transform: translateX(4px);
-        }
-
-        /* HOME link - left side */
-        .home-link {
-            margin-right: auto;
-            color: #475569;
-        }
-        .home-link:hover {
-            color: #0B1E3A;
-            border-bottom-color: #94A3B8;
-            transform: translateX(-2px);
-        }
-        .home-link:hover i {
-            transform: scale(1.1);
-        }
-
-        /* hide old containers if any */
-        .login-container,
-        .home-container {
-            display: none;
-        }
-
-        /* ----- MISC ----- */
-        input:not(:placeholder-shown) {
-            border-color: #CBD5E1;
-        }
-
-        /* scrollbar (clean) */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #F1F5F9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 8px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
-        }
-
-        /* ----- RESPONSIVE ----- */
-        @media (max-width: 480px) {
-            form {
-                padding: 32px 20px 28px;
-                margin: 8px;
-            }
-            h1 {
-                font-size: 24px;
-                letter-spacing: -0.2px;
-            }
-            h1::after {
-                width: 36px;
-                height: 3px;
-            }
-            input,
-            select {
-                padding: 11px 12px;
-                font-size: 14px;
-            }
-            .password-wrapper input {
-                padding-right: 40px;
-            }
-            button[type="submit"] {
-                padding: 13px;
-                font-size: 15px;
-            }
-            .toggle-password {
-                right: 10px;
-                font-size: 16px;
-            }
-            .tech-link {
-                font-size: 13px;
-            }
-            .link-container {
-                gap: 8px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            form {
-                padding: 56px 48px 44px;
-                max-width: 500px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -443,7 +35,8 @@
             <label for="password">Password</label>
             <div class="password-wrapper">
                 <input type="password" id="password" placeholder="••••••••" required minlength="6">
-                <button type="button" class="toggle-password" id="togglePasswordBtn" aria-label="Toggle password visibility">
+                <button type="button" class="toggle-password" id="togglePasswordBtn"
+                    aria-label="Toggle password visibility">
                     <i class="fas fa-eye"></i>
                 </button>
             </div>
@@ -465,8 +58,8 @@
         </div>
 
         <div class="link-container">
-            <a href="/Home.html" class="tech-link home-link"><i class="fas fa-home"></i> Home</a>
-            <a href="/Login.html" class="tech-link login-link">Login <i class="fas fa-arrow-right"></i></a>
+            <a href="Home.html" class="tech-link home-link"><i class="fas fa-home"></i> Home</a>
+            <a href="Login.html" class="tech-link login-link">Login <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <div class="form-group" style="margin-bottom: 0;">
@@ -475,7 +68,7 @@
     </form>
 
     <script>
-        (function() {
+        (function () {
             // ----- PASSWORD TOGGLE (Font Awesome) -----
             const passwordInput = document.getElementById('password');
             const toggleBtn = document.getElementById('togglePasswordBtn');
@@ -490,7 +83,7 @@
                 }
 
                 toggleBtn.addEventListener('click', toggleVisibility);
-                toggleBtn.addEventListener('keydown', function(e) {
+                toggleBtn.addEventListener('keydown', function (e) {
                     if (e.key === ' ' || e.key === 'Space' || e.key === 'Enter') {
                         e.preventDefault();
                         toggleVisibility();
@@ -501,7 +94,7 @@
             // ----- FORM SUBMISSION VALIDATION -----
             const form = document.getElementById('registrationForm');
             if (form) {
-                form.addEventListener('submit', function(e) {
+                form.addEventListener('submit', function (e) {
                     const name = document.getElementById('name');
                     const email = document.getElementById('email');
                     const phone = document.getElementById('phone');
@@ -548,7 +141,7 @@
             const phoneInput = document.getElementById('phone');
 
             if (emailInput) {
-                emailInput.addEventListener('blur', function() {
+                emailInput.addEventListener('blur', function () {
                     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (this.value.trim() && !emailPattern.test(this.value.trim())) {
                         this.style.borderColor = '#EF4444';
@@ -558,14 +151,14 @@
                         this.style.boxShadow = '0 0 0 3px rgba(16,185,129,0.08)';
                     }
                 });
-                emailInput.addEventListener('focus', function() {
+                emailInput.addEventListener('focus', function () {
                     this.style.borderColor = '#2563EB';
                     this.style.boxShadow = '0 0 0 3px rgba(37,99,235,0.12)';
                 });
             }
 
             if (phoneInput) {
-                phoneInput.addEventListener('blur', function() {
+                phoneInput.addEventListener('blur', function () {
                     const phonePattern = /^[0-9]{10}$/;
                     if (this.value.trim() && !phonePattern.test(this.value.trim())) {
                         this.style.borderColor = '#EF4444';
@@ -575,7 +168,7 @@
                         this.style.boxShadow = '0 0 0 3px rgba(16,185,129,0.08)';
                     }
                 });
-                phoneInput.addEventListener('focus', function() {
+                phoneInput.addEventListener('focus', function () {
                     this.style.borderColor = '#2563EB';
                     this.style.boxShadow = '0 0 0 3px rgba(37,99,235,0.12)';
                 });
