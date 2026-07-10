@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login · SaaS Corporate</title>
+  <!-- Font Awesome 6 (free) for eye icon & user-plus -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- RESET & BASE (Modern Corporate SaaS) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background: #F8FAFC;  /* Soft neutral background */
+      position: relative;
+    }
+
+    /* subtle grid / brand aura – very clean */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -40%;
+      left: -20%;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle at 30% 50%, rgba(37, 99, 235, 0.04) 0%, transparent 60%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -30%;
+      right: -20%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle at 70% 60%, rgba(37, 99, 235, 0.03) 0%, transparent 60%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ----- MAIN CARD (white, clean, radius 12px) ----- */
+    form {
+      position: relative;
+      z-index: 1;
+      background: #ffffff;
+      padding: 48px 40px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.03);
+      width: 100%;
+      max-width: 440px;
+      transition: box-shadow 0.25s ease, transform 0.2s ease;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    form:hover {
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 6px 18px rgba(0, 0, 0, 0.03);
+    }
+
+    /* ----- TITLE (clean, bold, primary) ----- */
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: #0B1E3A;
+      margin-bottom: 32px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 4px;
+      background: #2563EB;
+      border-radius: 4px;
+      margin: 12px auto 0;
+      opacity: 0.6;
+    }
+
+    /* ----- FORM GROUPS ----- */
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      font-size: 14px;
+      color: #1E293B;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* --- PASSWORD WRAPPER (for icon) --- */
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-wrapper input {
+      width: 100%;
+      padding: 12px 44px 12px 14px;
+      font-size: 15px;
+      font-weight: 400;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      color: #0B1E3A;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .password-wrapper input::placeholder {
+      color: #94A3B8;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .password-wrapper input:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #FFFFFF;
+    }
+
+    .password-wrapper input:hover {
+      border-color: #B9C7DB;
+    }
+
+    /* eye toggle button */
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-size: 17px;
+      cursor: pointer;
+      padding: 6px 4px;
+      transition: color 0.2s ease, transform 0.15s ease;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+
+    .toggle-password:hover {
+      color: #2563EB;
+    }
+
+    .toggle-password:active {
+      transform: translateY(-50%) scale(0.92);
+    }
+
+    .toggle-password i {
+      pointer-events: none;
+    }
+
+    /* ----- EMAIL/PHONE FIELD (clean) ----- */
+    .email-phone-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .email-phone-wrapper input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      font-weight: 400;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      color: #0B1E3A;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .email-phone-wrapper input::placeholder {
+      color: #94A3B8;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .email-phone-wrapper input:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #FFFFFF;
+    }
+
+    .email-phone-wrapper input:hover {
+      border-color: #B9C7DB;
+    }
+
+    /* Validation styling – clean corporate */
+    .email-phone-wrapper input:invalid:not(:placeholder-shown) {
+      border-color: #EF4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+    }
+
+    .email-phone-wrapper input:valid:not(:placeholder-shown) {
+      border-color: #10B981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.08);
+    }
+
+    /* Validation hint */
+    .validation-hint {
+      font-size: 13px;
+      color: #64748B;
+      margin-top: 6px;
+      display: block;
+      font-weight: 400;
+      letter-spacing: -0.1px;
+      transition: color 0.2s ease;
+    }
+
+    .validation-hint.active {
+      color: #2563EB;
+    }
+
+    .validation-hint i {
+      margin-right: 4px;
+      font-size: 12px;
+    }
+
+    /* ----- SUBMIT BUTTON (primary blue) ----- */
+    input[type="submit"] {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #FFFFFF;
+      background: #2563EB;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      position: relative;
+      margin-top: 6px;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+    }
+
+    input[type="submit"]:hover {
+      background: #1D4ED8;
+      box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.2);
+      transform: translateY(-1px);
+    }
+
+    input[type="submit"]:active {
+      background: #1E3A8A;
+      transform: scale(0.98);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+    }
+
+    /* ----- SIGN UP BUTTON (ghost / outline) ----- */
+    .signup-wrapper {
+      margin: 22px 0 20px;
+      text-align: center;
+    }
+
+    .signup-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: 30px;
+      background: transparent;
+      border: 1px solid #E2E8F0;
+      color: #1E293B;
+      transition: all 0.2s ease;
+      gap: 10px;
+    }
+
+    .signup-link i {
+      font-size: 14px;
+      color: #2563EB;
+      transition: transform 0.2s ease;
+    }
+
+    .signup-link:hover {
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+      color: #0B1E3A;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+    }
+
+    .signup-link:hover i {
+      transform: translateX(3px);
+    }
+
+    .signup-link:active {
+      transform: scale(0.96);
+    }
+
+    /* ----- MISC ----- */
+    input:not(:placeholder-shown) {
+      border-color: #CBD5E1;
+    }
+
+    br {
+      display: none;
+    }
+
+    /* scrollbar (clean) */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 480px) {
+      form { padding: 32px 20px 28px; margin: 8px; }
+      h1 { font-size: 24px; letter-spacing: -0.2px; }
+      h1::after { width: 36px; height: 3px; }
+      .password-wrapper input,
+      .email-phone-wrapper input { 
+        padding: 11px 12px; 
+        font-size: 14px; 
+      }
+      .password-wrapper input { padding-right: 40px; }
+      input[type="submit"] { padding: 13px; font-size: 15px; }
+      .toggle-password { right: 10px; font-size: 16px; }
+      .signup-link { padding: 8px 20px; font-size: 14px; }
+    }
+
+    @media (min-width: 768px) {
+      form { padding: 56px 48px 44px; max-width: 460px; }
+    }
+  </style>
+</head>
+<body>
+  <form action="/submit.php" method="post" id="loginForm">
+    <h1>Welcome back</h1>
+
+    <div class="form-group">
+      <label for="emailPhone">Email or phone</label>
+      <div class="email-phone-wrapper">
+        <input 
+          type="text" 
+          id="emailPhone" 
+          name="emailPhone"
+          placeholder="name@company.com or +91 45 677 " 
+          required
+          pattern="^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|[0-9]{10})$"
+          title="Enter a valid email address or 10-digit phone number"
+        >
+      </div>
+      <span class="validation-hint" id="validationHint"><i class="far fa-envelope"></i> Email or 10‑digit phone</span>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="password-wrapper">
+        <input type="password" id="password" name="password" placeholder="Enter password" required minlength="6">
+        <button type="button" class="toggle-password" id="togglePasswordBtn" aria-label="Toggle password visibility">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="signup-wrapper">
+      <a href="/Registeration.html" class="signup-link">
+        <i class="fas fa-user-plus"></i> Create account
+      </a>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 0;">
+      <input type="submit" value="Login">
+    </div>
+  </form>
+
+  <script>
+    (function() {
+      // ----- PASSWORD TOGGLE -----
+      const passwordInput = document.getElementById('password');
+      const toggleBtn = document.getElementById('togglePasswordBtn');
+      const icon = toggleBtn?.querySelector('i');
+
+      if (passwordInput && toggleBtn && icon) {
+        function toggleVisibility() {
+          const isPassword = passwordInput.type === 'password';
+          passwordInput.type = isPassword ? 'text' : 'password';
+          icon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+          passwordInput.focus();
+        }
+
+        toggleBtn.addEventListener('click', toggleVisibility);
+        toggleBtn.addEventListener('keydown', (e) => {
+          if (e.key === ' ' || e.key === 'Space' || e.key === 'Enter') {
+            e.preventDefault();
+            toggleVisibility();
+          }
+        });
+      }
+
+      // ----- EMAIL/PHONE VALIDATION HINT (corporate friendly) -----
+      const emailPhoneInput = document.getElementById('emailPhone');
+      const validationHint = document.getElementById('validationHint');
+
+      if (emailPhoneInput && validationHint) {
+        function updateHint() {
+          const value = this.value.trim();
+          
+          if (value.length === 0) {
+            validationHint.innerHTML = '<i class="far fa-envelope"></i> Email or 10‑digit phone';
+            validationHint.className = 'validation-hint';
+            return;
+          }
+
+          const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          const phonePattern = /^[0-9]{10}$/;
+
+          if (emailPattern.test(value)) {
+            validationHint.innerHTML = '<i class="fas fa-check-circle" style="color:#10B981;"></i> Valid email';
+            validationHint.className = 'validation-hint active';
+            validationHint.style.color = '#10B981';
+          } else if (phonePattern.test(value)) {
+            validationHint.innerHTML = '<i class="fas fa-check-circle" style="color:#10B981;"></i> Valid phone';
+            validationHint.className = 'validation-hint active';
+            validationHint.style.color = '#10B981';
+          } else {
+            validationHint.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:#F59E0B;"></i> Use email or 10‑digit phone';
+            validationHint.className = 'validation-hint active';
+            validationHint.style.color = '#D97706';
+          }
+        }
+
+        emailPhoneInput.addEventListener('input', updateHint);
+
+        emailPhoneInput.addEventListener('blur', function() {
+          const value = this.value.trim();
+          if (value.length === 0) {
+            validationHint.innerHTML = '<i class="far fa-envelope"></i> Email or 10‑digit phone';
+            validationHint.className = 'validation-hint';
+            validationHint.style.color = '#64748B';
+            return;
+          }
+          const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          const phonePattern = /^[0-9]{10}$/;
+          if (!emailPattern.test(value) && !phonePattern.test(value)) {
+            validationHint.innerHTML = '<i class="fas fa-times-circle" style="color:#EF4444;"></i> Invalid format';
+            validationHint.className = 'validation-hint active';
+            validationHint.style.color = '#EF4444';
+          }
+        });
+      }
+
+      // ----- FORM SUBMIT VALIDATION -----
+      const form = document.getElementById('loginForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          const emailPhone = document.getElementById('emailPhone');
+          const password = document.getElementById('password');
+          
+          if (!emailPhone.value.trim() || !password.value.trim()) {
+            e.preventDefault();
+            alert('Please fill in all fields');
+            return;
+          }
+
+          const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          const phonePattern = /^[0-9]{10}$/;
+          const value = emailPhone.value.trim();
+          
+          if (!emailPattern.test(value) && !phonePattern.test(value)) {
+            e.preventDefault();
+            alert('Please enter a valid email address or 10-digit phone number');
+            emailPhone.focus();
+            return;
+          }
+
+          console.log('Form submitted successfully');
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
